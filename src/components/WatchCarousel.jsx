@@ -38,8 +38,7 @@ function WatchCarousel() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 800,
-    slickArrow: null,
-    nextArrow: null,
+    arrows: false,
   };
 
   const handleCryptoClick = (crypto) => {
@@ -47,27 +46,29 @@ function WatchCarousel() {
   };
 
   return (
-    <div className="watch">
-      <h1>CRYPTOFOLIO WATCH LIST</h1>
-      <p>Get All The Info Regarding Your Favourite Crypto Currency</p>
-      <div className="carousel">
-        <div className="content">
-          <div className="carouselBar">
-            <Slider {...settings}>
-              {crypto.map((item) => (
-                <div className='carouselItem' key={item.id} onClick={() => handleCryptoClick(item)}>
-                  <Card crypto={item} />
-                </div>
-              ))}
-            </Slider>
+    <div className="carouselWatch">
+      <div className="watch">
+        <h1>CRYPTOFOLIO WATCH LIST</h1>
+        <p>Get All The Info Regarding Your Favourite Crypto Currency</p>
+        <div className="carousel">
+          <div className="content">
+            <div className="carouselBar">
+              <Slider {...settings}>
+                {crypto.map((item) => (
+                  <div className='carouselItem' key={item.id} onClick={() => handleCryptoClick(item)}>
+                    <Card crypto={item} />
+                  </div>
+                ))}
+              </Slider>
+            </div>
           </div>
         </div>
+        {selectedCrypto && (
+          <div className="selectedCryptoInfo">
+            <h2>{selectedCrypto.name}</h2>
+          </div>
+        )}
       </div>
-      {selectedCrypto && (
-        <div className="selectedCryptoInfo">
-          <h2>{selectedCrypto.name}</h2>
-        </div>
-      )}
     </div>
   );
 }

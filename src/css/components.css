@@ -8,9 +8,10 @@
   margin-right: auto;
   font-size: 42px;
   margin-bottom: 16px;
+  margin-top: 12px;
 }
 
-.header h1 {
+.header .logo {
   color: rgb(135, 206, 235);
   font-family: "Montserrat";
   font-size: 20px;
@@ -20,7 +21,12 @@
   text-align: left;
 }
 
+.headerWatch {
+  display: flex;
+}
+
 .cryptoMoney {
+  display: flex;
   color: rgb(255, 255, 255);
   font-family: "Roboto";
   font-size: 16px;
@@ -36,6 +42,7 @@
 }
 
 .watchBtn {
+  display: flex;
   color: rgba(0, 0, 0, 0.87);
   font-family: "Roboto";
   font-size: 14px;
@@ -47,10 +54,20 @@
   line-height: 24.5px;
   letter-spacing: 0.4px;
   text-align: center;
+  align-items: center;
   padding: 5px 18px;
   outline: none;
   border: none;
   text-transform: uppercase;
+}
+
+.watchLink {
+  display: flex;
+  text-decoration: none;
+}
+
+.eyeIcon {
+  margin-right: 5px;
 }
 
 .carousel {
@@ -60,8 +77,12 @@
   margin-right: auto;
 }
 
+.carouselBar button {
+  display: none;
+}
+
 .content {
-  text-align: center;
+  text-align: center; 
   margin-bottom: 30px;
 }
 
@@ -275,15 +296,27 @@
   width: 328px;
 }
 
+.tableLitInfo {
+  width: 202px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.tableEye {
+  margin-right: 16px;
+  color: rgb(117, 249, 76);
+}
+
 .tablePercentage {
-  width: 262px;
+  display: inline-block;
   color: rgb(14, 203, 129);
   font-family: "Roboto";
   font-size: 14px;
   font-weight: 500;
   line-height: 20.02px;
   letter-spacing: 0.15px;
-  text-align: right;
+  text-align: center;
 }
 
 .tablePercentage.negative {
@@ -310,6 +343,7 @@
 
 .tableCoin a {
   display: flex;
+  text-decoration: none;
 }
 
 .tableInfo .cryptoSymbol {
@@ -321,6 +355,11 @@
   letter-spacing: 0.15px;
   text-align: left;
   text-transform: uppercase;
+}
+
+.tableLitInfo {
+  text-align: center;
+  align-items: center;
 }
 
 .tableInfo .cryptoName {
@@ -423,10 +462,33 @@
 
 .cardMarketCap {
   color: rgb(255, 255, 255);
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-size: 24px;
   font-weight: 700;
   line-height: 32.02px;
   letter-spacing: 0%;
   text-align: left;
+}
+
+.watchMenu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgb(81, 81, 81);
+  width: 511px;
+  height: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 32px 38px;
+}
+
+.watchlistText {
+  color: #fff;
+  font-family: 'Roboto';
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 24.5px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  text-transform: uppercase;
 }

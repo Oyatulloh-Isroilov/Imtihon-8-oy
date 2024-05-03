@@ -14,3 +14,10 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+.heroContainer {
+  max-width: 1600px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
