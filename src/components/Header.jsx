@@ -6,12 +6,12 @@ function Header() {
             <div className="header">
                 <h1>CRYPTOFOLIO</h1>
                 <div className="headerWatch">
-                    <select>
+                    <select className='cryptoMoney'>
                         <option value="USD">USD</option>
                         <option value="EUR">EUR</option>
                         <option value="UZS">UZS</option>
                     </select>
-                    <button>WATCH LIST</button>
+                    <button className="watchBtn">WATCH LIST</button>
                 </div>
             </div>
         </>

@@ -1,3 +1,65 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1600px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 42px;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  color: rgb(135, 206, 235);
+  font-family: "Montserrat";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.15px;
+  text-align: left;
+}
+
+.cryptoMoney {
+  color: rgb(255, 255, 255);
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.15px;
+  text-align: left;
+  background: rgb(20, 22, 26);
+  outline: none;
+  border: none;
+  padding: 6px;
+  margin-right: 22px;
+}
+
+.watchBtn {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: "Roboto";
+  font-size: 14px;
+  border-radius: 4px;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.12),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+  background: rgb(135, 206, 235);
+  font-weight: 500;
+  line-height: 24.5px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  padding: 5px 18px;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+}
+
+.carousel {
+  max-width: 1400px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .content {
   text-align: center;
   margin-bottom: 30px;
@@ -10,25 +72,8 @@
   border-color: white;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1600px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 42px;
-}
-
-.header h1 {
-  color: rgb(135, 206, 235);
-  font-family: Montserrat;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 32px;
-  letter-spacing: 0.15px;
-  text-align: left;
+.slick-slider {
+  display: none;
 }
 
 .watch {
@@ -40,7 +85,7 @@
 
 .watch h1 {
   color: rgb(135, 206, 235);
-  font-family: Montserrat;
+  font-family: "Montserrat";
   font-size: 60px;
   font-weight: 700;
   line-height: 72px;
@@ -50,10 +95,23 @@
 
 .watch p {
   text-align: center;
+  color: rgb(169, 169, 169);
+  font-family: "Montserrat";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21.98px;
+  letter-spacing: 0.1px;
+  text-transform: capitalize;
+  width: 409.49px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .carouselItem {
+  cursor: pointer;
   color: #fff;
+  text-align: center;
+  padding: 20px;
 }
 
 .carouselImg {
@@ -64,18 +122,18 @@
   border-radius: 5%;
   width: 80px;
   height: 80px;
+  margin-bottom: 10px;
 }
 
 .carouselTitle {
-  margin-left: 50px;
   text-align: center;
   width: 70%;
   font-size: 30px;
-  padding: 20px;
+  padding: 7px;
   border-radius: 5px;
   font-size: 33px;
   color: rgb(255, 255, 255);
-  font-family: Roboto;
+  font-family: "Roboto";
   font-size: 16px;
   font-weight: 400;
   line-height: 19px;
@@ -85,7 +143,7 @@
 
 .carouselPercentage {
   color: rgb(14, 203, 129);
-  font-family: Roboto;
+  font-family: "Roboto";
   font-size: 15.75px;
   font-weight: 500;
   line-height: 18px;
@@ -93,11 +151,12 @@
   text-align: center;
   text-transform: uppercase;
   color: green;
+  margin-top: 5px;
 }
 
 .carouselPercentage.negative {
   color: rgb(14, 203, 129);
-  font-family: Roboto;
+  font-family: "Roboto";
   font-size: 15.75px;
   font-weight: 500;
   line-height: 18px;
@@ -105,6 +164,7 @@
   text-align: center;
   text-transform: uppercase;
   color: red;
+  margin-top: 5px;
 }
 
 .carouselPrice {
@@ -113,7 +173,7 @@
   font-size: 25px;
   margin: 20px auto;
   color: rgb(255, 255, 255);
-  font-family: Roboto;
+  font-family: "Roboto";
   font-size: 21.83px;
   font-weight: 500;
   line-height: 26px;
@@ -122,17 +182,251 @@
   text-transform: uppercase;
 }
 
-.cryptoTable {
-  border-collapse: collapse;
+.hero {
   width: 100%;
 }
 
-.tableHead {
-  text-align: left;
+.hero h1 {
+  color: rgb(255, 255, 255);
+  font-family: "Montserrat";
+  font-size: 34px;
+  margin-top: 27px;
+  font-weight: 400;
+  line-height: 41.99px;
+  letter-spacing: 0.25px;
+  text-align: center;
+}
+
+.searchBar input {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Roboto";
+  width: 100%;
+  padding: 15px;
+  outline: none;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.23);
+  border-radius: 4px;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.15px;
+  margin-bottom: 20px;
+  margin-top: 18px;
+}
+
+.cryptoTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cryptoTable th,
+.cryptoTable td {
   padding: 8px;
+  text-align: left;
+}
+
+.cryptoTable th {
+  color: rgb(0, 0, 0);
+  font-family: "Montserrat";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  text-align: left;
+  background-color: rgb(135, 206, 235);
+  padding: 19px;
+  justify-content: space-between;
+}
+
+.cryptoImg {
+  width: 50px;
+  height: 50px;
+  height: auto;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.cryptoName {
+  display: flex;
+}
+
+.tableTr {
+  cursor: pointer;
+  border-bottom: 1px solid rgb(81, 81, 81);
 }
 
 .tableItems {
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+  letter-spacing: 0.15px;
+  text-align: right;
+}
+
+.tableCoin {
+  display: flex;
+  width: 205px;
+}
+
+.tablePrice {
+  width: 328px;
+}
+
+.tablePercentage {
+  width: 262px;
+  color: rgb(14, 203, 129);
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.02px;
+  letter-spacing: 0.15px;
+  text-align: right;
+}
+
+.tablePercentage.negative {
+  color: red;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.02px;
+  letter-spacing: 0.15px;
+}
+
+.tableMarketCap {
+  width: 200px;
+}
+
+.tableImg img {
+  display: flex;
+}
+
+.tableInfo {
+  margin-left: 15px;
+  color: #fff;
+}
+
+.tableCoin a {
+  display: flex;
+}
+
+.tableInfo .cryptoSymbol {
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 31.46px;
+  letter-spacing: 0.15px;
   text-align: left;
-  padding: 8px;
+  text-transform: uppercase;
+}
+
+.tableInfo .cryptoName {
+  color: rgb(169, 169, 169);
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+  letter-spacing: 0.15px;
+  text-align: left;
+}
+
+.pagination {
+  display: flex;
+}
+
+.pagination nav {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pagination nav ul li button,
+.pagination nav ul li div {
+  color: rgb(135, 206, 235);
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.02px;
+  letter-spacing: 0.15px;
+  text-align: center;
+}
+
+.card-info {
+  display: flex;
+}
+
+.cardInfo {
+  align-items: center;
+}
+
+.cardInfo strong {
+  color: rgb(255, 255, 255);
+  opacity: 0.6;
+  font-family: "Montserrat";
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32.02px;
+  letter-spacing: 0%;
+  text-align: left;
+}
+
+.cardImage {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+}
+
+.cardtitle {
+  color: rgb(255, 255, 255);
+  font-family: "Montserrat";
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56.02px;
+  letter-spacing: 0%;
+  text-align: left;
+}
+
+.cardDesc {
+  color: rgb(255, 255, 255);
+  font-family: "Montserrat";
+  opacity: 0.6;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.15px;
+  text-align: left;
+}
+
+.cardRank {
+  color: rgb(255, 255, 255);
+  font-family: "Montserrat";
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32.02px;
+  letter-spacing: 0%;
+  text-align: left;
+}
+
+.cardCurrentPrice {
+  color: rgb(255, 255, 255);
+  font-family: "Montserrat";
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32.02px;
+  letter-spacing: 0%;
+  text-align: left;
+}
+
+.cardMarketCap {
+  color: rgb(255, 255, 255);
+  font-family: 'Montserrat';
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32.02px;
+  letter-spacing: 0%;
+  text-align: left;
 }
