@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Header from './Header';
+import WatchList from '../pages/WatchList';
 import '../css/components.css';
 import { Pagination, PaginationItem } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { Link } from 'react-router-dom';
 
 function Hero() {
     const [cryptoData, setCryptoData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [coinsPerPage] = useState(10);
     const [loading, setLoading] = useState(true);
-    const [selectedCurrency, setSelectedCurrency] = useState('USD'); // Tanlangan valyuta
+    const [selectedCurrency, setSelectedCurrency] = useState('USD');
+    const [query, setQuery] = useState('');
+    const [filteredData, setFilteredData] = useState([]);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,35 +27,71 @@ function Hero() {
                 const response = await fetch(url);
                 const data = await response.json();
 
-                setCryptoData(data);
+                const watchlistCoins = JSON.parse(localStorage.getItem('watchlistCoins')) || [];
+
+                const updatedData = data.map(coin => ({
+                    ...coin,
+                    isWatchlisted: watchlistCoins.some(item => item.id === coin.id)
+                }));
+
+                setCryptoData(updatedData);
                 setLoading(false);
             } catch (error) {
                 console.error('Error occurred: ', error);
+                setError(true);
             }
         };
 
         fetchData();
     }, [currentPage, coinsPerPage, selectedCurrency]);
 
+    useEffect(() => {
+        localStorage.setItem('watchlistCoins', JSON.stringify(cryptoData.filter(coin => coin.isWatchlisted)));
+    }, [cryptoData]);
+
+    useEffect(() => {
+        const results = cryptoData.filter(coin =>
+            coin.name.toLowerCase().includes(query.toLowerCase()) ||
+            coin.symbol.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredData(results);
+    }, [query, cryptoData]);
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    const handleCurrencyChange = (e) => {
-        setSelectedCurrency(e.target.value);
+    const handleCurrencyChange = (currency) => {
+        setSelectedCurrency(currency);
     };
+
+    const handleWatchlistToggle = (id) => {
+        const updatedCryptoData = cryptoData.map(coin => {
+            if (coin.id === id) {
+                coin.isWatchlisted = !coin.isWatchlisted;
+            }
+            return coin;
+        });
+        setCryptoData(updatedCryptoData);
+    };
+
+    const handleSearch = (e) => {
+        setQuery(e.target.value);
+    };
+
+    if (error) {
+        return <div className='errorText'>Error occurred while loading data. Please try again later.</div>;
+    }
 
     return (
         <div className="hero">
             <h1>Cryptocurrency Prices by Market Cap</h1>
+            <select className='cryptoMoney' value={selectedCurrency} onChange={(e) => handleCurrencyChange(e.target.value)}>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+            </select>
+
             <div className="searchBar">
-                <input type="text" placeholder="Search For a Crypto Currency.." />
-            </div>
-            <div className="currencySelector">
-                <label htmlFor="currency">Select Currency: </label>
-                <select id="currency" value={selectedCurrency} onChange={handleCurrencyChange}>
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="RUB">RUB</option>
-                </select>
+                <input type="text" placeholder="Search For a Crypto Currency.." onChange={handleSearch} />
             </div>
             <table className='cryptoTable'>
                 <thead>
@@ -59,15 +100,16 @@ function Hero() {
                         <th className='tableHead'>Price</th>
                         <th className='tableHead'>24h Changes</th>
                         <th className='tableHead'>Market Cap</th>
+                        <th className='tableHead'>Watchlist</th>
                     </tr>
                 </thead>
                 <tbody>
                     {loading ? (
                         <tr>
-                            <td colSpan="4">Loading...</td>
+                            <td colSpan="5">Loading...</td>
                         </tr>
                     ) : (
-                        cryptoData.map((crypto) => (
+                        filteredData.map((crypto) => (
                             <tr className='tableTr' key={crypto.id}>
                                 <td className='tableItems tableCoin'>
                                     <Link to={`/cardinfo/${crypto.id}`}>
@@ -88,6 +130,11 @@ function Hero() {
                                     </span>
                                 </td>
                                 <td className='tableItems tableMarketCap'>$ {crypto.market_cap.toLocaleString(undefined, { maximumFractionDigits: 0 }).slice(0, -4)}M</td>
+                                <td className='tableItems tableWatchlist'>
+                                    <button onClick={() => handleWatchlistToggle(crypto.id)}>
+                                        {crypto.isWatchlisted ? <RemoveRedEyeIcon className='tableEye' /> : ''}
+                                        {crypto.isWatchlisted ? 'Remove' : 'Add'}
+                                    </button></td>
                             </tr>
                         ))
                     )}
@@ -95,7 +142,7 @@ function Hero() {
             </table>
             <CustomPagination
                 currentPage={currentPage}
-                totalCoins={cryptoData.length}
+                totalCoins={filteredData.length}
                 paginate={paginate}
             />
         </div>

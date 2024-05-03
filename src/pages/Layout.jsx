@@ -3,13 +3,13 @@ import Header from "../components/Header";
 import WatchCarousel from '../components/WatchCarousel';
 
 export default function Layout({ children, currentRoute }) {
-  const isHomePage = currentRoute === "/"; // Check if home page
+  const isHomePage = currentRoute === "/";
 
   return (
     <>
       {isHomePage && <Header />}
-      <div className="container">
         <WatchCarousel />
+      <div className="container">
         {children}
         {currentRoute !== "/cardinfo/:id"}
       </div>
