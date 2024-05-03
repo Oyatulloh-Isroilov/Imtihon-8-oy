@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Chart from '../components/Chart';
-import ApexCharts from 'apexcharts';
 import '../css/components.css';
 
 function CardInfo() {
@@ -9,6 +8,7 @@ function CardInfo() {
     const [cryptoInfo, setCryptoInfo] = useState({});
     const [loading, setLoading] = useState(true);
     const [shortDescription, setShortDescription] = useState('');
+    const [chartDays, setChartDays] = useState('24h'); 
 
     useEffect(() => {
         const fetchCryptoInfo = async () => {
@@ -35,32 +35,6 @@ function CardInfo() {
         }
     }, [cryptoInfo]);
 
-    useEffect(() => {
-        if (!loading && cryptoInfo.market_data && cryptoInfo.market_data.sparkline_7d) {
-            const chartData = {
-                options: {
-                    chart: {
-                        type: 'line',
-                    },
-                    xaxis: {
-                        categories: cryptoInfo.market_data.sparkline_7d.price.map((_, index) => index + 1),
-                    },
-                },
-                series: [
-                    {
-                        name: 'Price',
-                        data: cryptoInfo.market_data.sparkline_7d.price,
-                    },
-                ],
-            };
-    
-            const chart = new ApexCharts(document.querySelector('.cardChart'), chartData.options);
-            chart.appendSeries(chartData.series);
-            chart.render();
-        }
-    }, [cryptoInfo, loading]);
-    
-
     return (
         <div className="card-info">
             {loading ? (
@@ -75,7 +49,9 @@ function CardInfo() {
                     <p className='cardMarketCap'>Market Cap: <strong>{cryptoInfo.market_data.market_cap?.usd}</strong></p>
                 </div>
             )}
-            <div className="cardChart"></div>
+            <div className="cardChart">
+                <Chart id={id} days={chartDays} />
+            </div>
         </div>
     );    
 }

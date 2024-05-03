@@ -7,10 +7,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { Link } from 'react-router-dom';
+import WatchCarousel from './WatchCarousel';
 
 function Hero() {
     const [cryptoData, setCryptoData] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(10);
     const [coinsPerPage] = useState(10);
     const [loading, setLoading] = useState(true);
     const [selectedCurrency, setSelectedCurrency] = useState('USD');
@@ -61,7 +62,9 @@ function Hero() {
 
     const handleCurrencyChange = (currency) => {
         setSelectedCurrency(currency);
+        setCurrentPage(1);
     };
+
 
     const handleWatchlistToggle = (id) => {
         const updatedCryptoData = cryptoData.map(coin => {
@@ -78,95 +81,92 @@ function Hero() {
     };
 
     if (error) {
-        return <div className='errorText'>Error occurred while loading data. Please try again later.</div>;
+        return window.location.href = '/error';
     }
 
     return (
         <div className="hero">
             <h1>Cryptocurrency Prices by Market Cap</h1>
-            <select className='cryptoMoney' value={selectedCurrency} onChange={(e) => handleCurrencyChange(e.target.value)}>
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-            </select>
-
-            <div className="searchBar">
-                <input type="text" placeholder="Search For a Crypto Currency.." onChange={handleSearch} />
-            </div>
-            <table className='cryptoTable'>
-                <thead>
-                    <tr>
-                        <th className='tableHead'>Coin</th>
-                        <th className='tableHead'>Price</th>
-                        <th className='tableHead'>24h Changes</th>
-                        <th className='tableHead'>Market Cap</th>
-                        <th className='tableHead'>Watchlist</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {loading ? (
+            <WatchCarousel />
+            <div className="heroContainer">
+                <select className='cryptoMoney' value={selectedCurrency} onChange={(e) => handleCurrencyChange(e.target.value)}>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                </select>
+                <div className="searchBar">
+                    <input type="text" placeholder="Search For a Crypto Currency.." onChange={handleSearch} />
+                </div>
+                <table className='cryptoTable'>
+                    <thead>
                         <tr>
-                            <td colSpan="5">Loading...</td>
+                            <th className='tableHead'>Coin</th>
+                            <th className='tableHead'>Price</th>
+                            <th className='tableHead'>24h Changes</th>
+                            <th className='tableHead'>Market Cap</th>
+                            <th className='tableHead'>Watchlist</th>
                         </tr>
-                    ) : (
-                        filteredData.map((crypto) => (
-                            <tr className='tableTr' key={crypto.id}>
-                                <td className='tableItems tableCoin'>
-                                    <Link to={`/cardinfo/${crypto.id}`}>
-                                        <div className="tableImg">
-                                            <img className="cryptoImg" src={crypto.image} alt={crypto.symbol} />
-                                        </div>
-                                        <div className="tableInfo">
-                                            <span className='cryptoSymbol'>{crypto.symbol.toUpperCase()}</span>
-                                            <span className='cryptoName'>{crypto.name}</span>
-                                        </div>
-                                    </Link>
-                                </td>
-                                <td className='tableItems tablePrice'>{crypto.current_price}</td>
-                                <td className={`tableItems ${crypto.price_change_percentage_24h < 0 ? 'negative' : ''}`}>
-                                    <span className='tableLitInfo'>
-                                        <RemoveRedEyeIcon className='tableEye' />
-                                        <span className='tablePercentage'>{crypto.price_change_percentage_24h > 0 ? '+' : ''}{crypto.price_change_percentage_24h}%</span>
-                                    </span>
-                                </td>
-                                <td className='tableItems tableMarketCap'>$ {crypto.market_cap.toLocaleString(undefined, { maximumFractionDigits: 0 }).slice(0, -4)}M</td>
-                                <td className='tableItems tableWatchlist'>
-                                    <button onClick={() => handleWatchlistToggle(crypto.id)}>
-                                        {crypto.isWatchlisted ? <RemoveRedEyeIcon className='tableEye' /> : ''}
-                                        {crypto.isWatchlisted ? 'Remove' : 'Add'}
-                                    </button></td>
+                    </thead>
+                    <tbody>
+                        {loading ? (
+                            <tr>
+                                <td colSpan="5">Loading...</td>
                             </tr>
-                        ))
-                    )}
-                </tbody>
-            </table>
-            <CustomPagination
-                currentPage={currentPage}
-                totalCoins={filteredData.length}
-                paginate={paginate}
-            />
+                        ) : (
+                            filteredData.map((crypto) => (
+                                <tr className='tableTr' key={crypto.id}>
+                                    <td className='tableItems tableCoin'>
+                                        <Link to={`/cardinfo/${crypto.id}`}>
+                                            <div className="tableImg">
+                                                <img className="cryptoImg" src={crypto.image} alt={crypto.symbol} />
+                                            </div>
+                                            <div className="tableInfo">
+                                                <span className='cryptoSymbol'>{crypto.symbol.toUpperCase()}</span>
+                                                <span className='cryptoName'>{crypto.name}</span>
+                                            </div>
+                                        </Link>
+                                    </td>
+                                    <td className='tableItems tablePrice'>{crypto.current_price}</td>
+                                    <td className={`tableItems ${crypto.price_change_percentage_24h < 0 ? 'negative' : ''}`}>
+                                        <span className='tableLitInfo'>
+                                            <RemoveRedEyeIcon className='tableEye' />
+                                            <span className='tablePercentage'>{crypto.price_change_percentage_24h > 0 ? '+' : ''}{crypto.price_change_percentage_24h}%</span>
+                                        </span>
+                                    </td>
+                                    <td className='tableItems tableMarketCap'>$ {crypto.market_cap.toLocaleString(undefined, { maximumFractionDigits: 0 }).slice(0, -4)}M</td>
+                                    <td className='tableItems tableWatchlist'>
+                                        <button onClick={() => handleWatchlistToggle(crypto.id)}>
+                                            {crypto.isWatchlisted ? <RemoveRedEyeIcon className='tableEye' /> : ''}
+                                            {crypto.isWatchlisted ? 'Remove' : 'Add'}
+                                        </button></td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+                <CustomPagination
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(filteredData.length / coinsPerPage)}
+                    paginate={paginate}
+                />
+
+            </div>
         </div>
     );
 }
 
-const CustomPagination = ({ currentPage, totalCoins, paginate }) => {
-    const totalPages = Math.ceil(totalCoins / 10);
-
+const CustomPagination = ({ currentPage, totalPages, paginate }) => {
     return (
         <div className="pagination">
             <Pagination
-                count={totalPages}
+                count={10}
                 page={currentPage}
+                color="primary"
                 onChange={(event, page) => paginate(page)}
-                renderItem={(item) => (
-                    <PaginationItem
-                        slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-                        {...item}
-                    />
-                )}
             />
         </div>
     );
 };
+
 
 export default Hero;

@@ -7,8 +7,6 @@ export default function Layout({ children, currentRoute }) {
 
   return (
     <>
-      {isHomePage && <Header />}
-        <WatchCarousel />
       <div className="container">
         {children}
         {currentRoute !== "/cardinfo/:id"}
